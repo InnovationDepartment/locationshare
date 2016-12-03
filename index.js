@@ -35,27 +35,29 @@ mainDb.sync().then(function () {
   server.listen(port, function () {
     console.log('Server listening at port %d', port);
   });
+
+  _.each([io, ioSecure], function (item) {
+    if (item) {
+      item.on('connection', function (socket) {
+        socket.on('register', function (data) {
+          UserRecord.register(data).then(function (user) {
+            socket.emit('registered', user);
+          }).catch(function (err) {
+            socket.emit('register-fail', err);
+          })
+        });
+
+        socket.on('visit', function (data) {
+          console.log(data);
+          VisitRecord.create(data);
+
+          socket.broadcast.emit('new-visit', data);
+        });
+      });
+    }
+  })
+
 });
 
 app.use(express.static(__dirname + '/public'));
 
-_.each([io, ioSecure], function (item) {
-  if (item) {
-    item.on('connection', function (socket) {
-      socket.on('register', function (data) {
-        UserRecord.register(data).then(function (user) {
-          socket.emit('registered', user);
-        }).catch(function (err) {
-          socket.emit('register-fail', err);
-        })
-      });
-
-      socket.on('visit', function (data) {
-        console.log(data);
-        VisitRecord.create(data);
-
-        socket.broadcast.emit('new-visit', data);
-      });
-    });
-  }
-})
