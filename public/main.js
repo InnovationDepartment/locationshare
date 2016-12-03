@@ -15,7 +15,7 @@ var processVisit = function (visit) {
   var $a = $('<a />');
   $a.attr('href', visit.url);
   $a.attr('target', '_blank');
-
+  $a.html(visit.url);
   var $title= $('<h1 />')
 
   $title.html(visit.username);
