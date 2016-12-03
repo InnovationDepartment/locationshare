@@ -17,11 +17,6 @@ var generateHash = function (password, callback) {
 
 module.exports = function (sequelize) {
   var User = sequelize.define('users', {
-    created_at: {
-      type: Sequelize.DATE,
-      field: 'created_at',
-      defaultValue:  Sequelize.NOW
-    },
     username: {
       type: Sequelize.STRING
     },
@@ -35,32 +30,35 @@ module.exports = function (sequelize) {
       }
     },
     classMethods: {
-      register: function (data, callback) {
-        UserRecord.findOne({
-          where: {
-            username: {
-              $iLike: data.username
+      register: function (data) {
+        return new Promise(function (res, rej) {
+          UserRecord.findOne({
+            where: {
+              username: {
+                $iLike: data.username
+              }
             }
-          }
-        }).then(function (user) {
-          if (user) {
-            callback({error: 'Username Not Available'});
-          } else {
-            if (!validPassword(data.password)) {
-              callback({error: 'Invalid Password'});
-              return;
+          }).then(function (user) {
+            if (user) {
+              rej({error: 'Username Not Available'});
+            } else {
+              if (!validPassword(data.password)) {
+                rej({error: 'Invalid Password'});
+                return;
+              }
+              generateHash(data.password, function (passwordHash) {
+                var user = User.build({
+                  username: data.username,
+                  passwordHash: passwordHash
+                });
+                user.save().then(function () {
+                  res(user);
+                });
+              });
             }
-            generateHash(data.password, function (passwordHash) {
-              var user = User.build({
-                username: data.username,
-                passwordHash: passwordHash
-              });
-              user.save().then(function () {
-                callback(null, user);
-              });
-            });
-          }
-        });
+          });
+        })
+        
       },
       login: function (data, callback) {
         UserRecord.findOne({
@@ -84,7 +82,7 @@ module.exports = function (sequelize) {
         });
       }
     }
-  });
+  })
   
   return User;
 }

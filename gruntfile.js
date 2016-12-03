@@ -8,20 +8,20 @@ module.exports = function (grunt) {
     models: {
       options: {
         reporter: 'spec',
-        timeout: 8000
+        timeout: 18000
       },
       src: [
-        'test/user-tests.js'
+        'tests/user-tests.js'
       ]
     },
 
-    requests: {
+    socket: {
       options: {
         reporter: 'spec',
         timeout: 2000
       },
       src: [
-        'test/user-tests.js'
+        'tests/user-tests.js'
       ]
     },
   });
