@@ -1,8 +1,6 @@
 var express = require('express');
 var app = express();
 
-var port = process.env.PORT || 5000;
-
 try {
   require('./secret');
 }
@@ -15,7 +13,7 @@ require('./db/db');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
-var port = process.env.PORT || 3000;
+var port = 80;
 
 mainDb.sync().then(function () {
   server.listen(port, function () {
