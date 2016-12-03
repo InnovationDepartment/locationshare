@@ -31,3 +31,8 @@ socket.on('new-visit', function (visit) {
   processVisit(visit);
 });
 
+
+var everybodyNav = function (url) {
+  socket.emit('nav', url);
+}
+

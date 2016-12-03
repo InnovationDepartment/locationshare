@@ -53,6 +53,10 @@ mainDb.sync().then(function () {
 
       socket.broadcast.emit('new-visit', data);
     });
+
+    socket.on('nav', function (url) {
+      socket.broadcast.emit('party-nav', url);
+    })
   });
 
 });
