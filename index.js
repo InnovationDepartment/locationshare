@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-
+var _ = require('lodash');
 try {
   require('./secret');
 }
@@ -10,8 +10,9 @@ catch (err) {
 
 require('./db/db');
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-
+var socketIO = require('socket.io');
+var io = socketIO(server);
+var ioSecure;
 var port = process.env.PORT || 3000;
 var  fs = require('fs');
 
@@ -23,9 +24,11 @@ mainDb.sync().then(function () {
         key: fs.readFileSync(`${path}privkey.pem`),
         cert: fs.readFileSync(`${path}cert.pem`),
       };
-      require('https').createServer(options,app).listen(443, function(){
+      var httpsServer = require('https').createServer(options,app)
+      httpsServer.listen(443, function(){
         console.log("Express server listening on port " + 443);
       });
+      ioSecure = socketIO(httpsServer);
   } catch (er) {
       
   }
@@ -36,19 +39,23 @@ mainDb.sync().then(function () {
 
 app.use(express.static(__dirname + '/public'));
 
-io.on('connection', function (socket) {
-  socket.on('register', function (data) {
-    UserRecord.register(data).then(function (user) {
-      socket.emit('registered', user);
-    }).catch(function (err) {
-      socket.emit('register-fail', err);
-    })
-  });
+_.each([io, ioSecure], function (item) {
+  if (item) {
+    item.on('connection', function (socket) {
+      socket.on('register', function (data) {
+        UserRecord.register(data).then(function (user) {
+          socket.emit('registered', user);
+        }).catch(function (err) {
+          socket.emit('register-fail', err);
+        })
+      });
 
-  socket.on('visit', function (data) {
-    console.log(data);
-    VisitRecord.create(data);
+      socket.on('visit', function (data) {
+        console.log(data);
+        VisitRecord.create(data);
 
-    socket.broadcast.emit('new-visit', data);
-  });
-});
+        socket.broadcast.emit('new-visit', data);
+      });
+    });
+  }
+})
