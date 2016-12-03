@@ -18,7 +18,7 @@ module.exports = function (sequelize) {
     		return new Promise(function (resolve, reject) {
 	    		VisitRecord.findAll().then(function(results) {
 			      if (results) {
-			        resolve(visits);
+			        resolve(results);
 			      } else {
 			        resolve();
 			      }
@@ -33,7 +33,7 @@ module.exports = function (sequelize) {
 	    			}
 	    		}).then(function(results) {
 			      if (results) {
-			        resolve(visits);
+			        resolve(results);
 			      } else {
 			        resolve();
 			      }
