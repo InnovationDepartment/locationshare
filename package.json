@@ -15,6 +15,7 @@
     "request": "2.56.0",
     "sequelize": "3.25.0",
     "sequelize-cli": "2.0.0",
+    "socket.io": "1.7.1",
     "socket.io-client": "1.7.1"
   }, "devDependencies": {
     "grunt-mocha-test": "0.12.7",
