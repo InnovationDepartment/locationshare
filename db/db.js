@@ -1,9 +1,10 @@
 var Sequelize = require('sequelize');
 
-var dbName = 'windowdotlocation';
+var dbName = 'windowdot';
+var env = process.env.ENVIRONMENT;
 
-mainDb = new Sequelize(dbName, process.env.DB_USER, process.env.DB_PASSWORD, {
-  host: process.env.DB_HOST,
+mainDb = new Sequelize(dbName, process.env[`DB_USER_${env}`], process.env[`DB_PASSWORD_${env}`], {
+  host: process.env[`DB_HOST_${env}`],
   dialect: 'postgres',
   logging: false,
   pool: {

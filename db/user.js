@@ -62,7 +62,6 @@ module.exports = function (sequelize) {
           }
         });
       },
-
       login: function (data, callback) {
         UserRecord.findOne({
           where: {

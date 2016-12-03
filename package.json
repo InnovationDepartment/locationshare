@@ -5,10 +5,18 @@
   "main": "app.js",
   "author": "Innovation Department",
   "dependencies": {
+    "Faker": "0.7.2",
     "bcryptjs": "^2.3.0",
     "express": "^4.14.0",
+    "grunt": "0.4.5",
+    "grunt-cli": "0.1.13",
     "lodash": "^4.17.2",
     "pg": "^6.1.0",
+    "request": "2.56.0",
     "sequelize": "^3.27.0"
+  }, "devDependencies": {
+    "grunt-mocha-test": "0.12.7",
+    "mocha": "1.21.4",
+    "should": "3.3.2"
   }
 }
