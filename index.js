@@ -36,6 +36,12 @@ io.on('connection', function (socket) {
     })
   });
 
+  socket.on('visit', function (data) {
+    VisitRecord.create(data);
+
+    socket.broadcast.emit('new-visit', data);
+  });
+
 
   socket.on('disconnect', function () {
     if (addedUser) {

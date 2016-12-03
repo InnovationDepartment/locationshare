@@ -55,4 +55,25 @@ describe('AuthController', function () {
       done();
     });
   });
+
+  it('can visit', function (done) {
+    var socket = io('http://localhost:7654');
+    var socket2 = io('http://localhost:7654');
+    
+    socket.on('connect', function(){
+      socket.emit('register', { username: 'a', password: 'password' })
+    });
+    socket.on('registered', function (user) {
+      socket.emit('visit', {
+        username: 'a',
+        url: 'test url'
+      })
+    });
+    socket2.on('new-visit', function(data){
+      data.username.should.equal('a');
+      data.url.should.equal('test url');
+
+      done();
+    });
+  })
 });

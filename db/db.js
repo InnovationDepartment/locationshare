@@ -13,4 +13,5 @@ mainDb = new Sequelize(process.env[`DB_NAME_${env}`], process.env[`DB_USER_${env
   }
 });
 
+VisitRecord = require('./visit')(mainDb);
 UserRecord = require('./user')(mainDb);

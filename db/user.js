@@ -19,7 +19,7 @@ module.exports = function (sequelize) {
   var User = sequelize.define('users', {
     username: {
       type: Sequelize.STRING,
-      
+
     },
     passwordHash: {
       type: Sequelize.STRING
