@@ -20,4 +20,11 @@ module.exports = function(app) {
 			return res.json(data);
 		});
 	});
+
+	app.get('/popular-visits', function(req, res, next) {
+		VisitRecord.popularVisits()
+		.then(function (data) {
+			return res.json(data);
+		});
+	});
 }
