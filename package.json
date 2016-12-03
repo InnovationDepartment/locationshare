@@ -5,6 +5,10 @@
   "main": "app.js",
   "author": "Innovation Department",
   "dependencies": {
-    "express": "^4.14.0"
+    "bcryptjs": "^2.3.0",
+    "express": "^4.14.0",
+    "lodash": "^4.17.2",
+    "pg": "^6.1.0",
+    "sequelize": "^3.27.0"
   }
 }
