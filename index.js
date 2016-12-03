@@ -9,6 +9,8 @@ catch (err) {
 }
 
 require('./db/db');
+require('./routes')(app);
+
 var server = require('http').createServer(app);
 var socketIO = require('socket.io');
 var io = socketIO(server);
