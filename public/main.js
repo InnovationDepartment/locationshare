@@ -13,7 +13,7 @@ var processVisit = function (visit) {
     visits.pop();
   }
   for(var i = 0; i < 4; i++) {
-    $('#user' + i).html(visits[i].username + ' ' visit[i].url);
+    $('#user' + i).html(visits[i].username + ' ' +  visit[i].url);
     $('#frame' + i).attr('src', visit[i].url);
   }
 }
