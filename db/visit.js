@@ -25,7 +25,7 @@ module.exports = function (sequelize) {
 			    });
     		});
     	},
-    	recentVisits: function (username) {
+    	userVisits: function (username) {
     		return new Promise(function (resolve, reject) {
 	    		VisitRecord.findAll({
 	    			where: {
