@@ -39,17 +39,4 @@ io.on('connection', function (socket) {
 
     socket.broadcast.emit('new-visit', data);
   });
-
-
-  socket.on('disconnect', function () {
-    if (addedUser) {
-      --numUsers;
-
-      // echo globally that this client has left
-      socket.broadcast.emit('user left', {
-        username: socket.username,
-        numUsers: numUsers
-      });
-    }
-  });
 });
