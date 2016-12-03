@@ -11,7 +11,6 @@ catch (err) {
   console.log(err);
 }
 
-require('./routes')(app);
 require('./db/db');
 
 var server = require('http').createServer(app);
@@ -25,8 +24,6 @@ server.listen(port, function () {
 
 app.use(express.static(__dirname + '/public'));
 
-
-var users = [];
 io.on('connection', function (socket) {
   socket.on('register', function (data) {
     UserRecord.register(data).then(function (user) {

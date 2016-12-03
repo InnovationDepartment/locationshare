@@ -1,5 +1,3 @@
-'use strict';
-
 var Sequelize = require('sequelize');
 var bcrypt = require('bcryptjs');
 
@@ -58,8 +56,7 @@ module.exports = function (sequelize) {
               });
             }
           });
-        })
-        
+        });
       },
       login: function (data, callback) {
         UserRecord.findOne({
@@ -83,7 +80,7 @@ module.exports = function (sequelize) {
         });
       }
     }
-  })
+  });
   
   return User;
 }

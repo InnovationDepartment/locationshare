@@ -1,19 +1,15 @@
 'use strict';
 
-'use strict';
-
-var _ = require('lodash');
-
 require('./../secret');
 
 process.env.ENVIRONMENT = 'TEST';
-require('./../db/db');
 process.env.PORT = 7654;
 process.env.request_base = 'http://localhost:7654';
 
+require('./../db/db');
 var index = require('./../index');
 
-
+var _ = require('lodash');
 var faker = require('Faker');
 var should = require('should');
 var request = require('request');
@@ -27,31 +23,33 @@ describe('AuthController', function () {
       console.log(arguments);
     });
   });
+  
   it('can register', function (done) {
     var socket = io('http://localhost:7654');
 
-    socket.on('connect', function(){
+    socket.on('connect', function() {
       socket.emit('register', { username: 'a', password: 'password' })
     });
     socket.on('registered', function (user) {
       should(user.id).be.ok;
       done();
     });
-    socket.on('register-fail', function(data){
+    socket.on('register-fail', function(data) {
       should(user.id).not.be.ok;
       done();
     });
   });
+
   it('cant register unique username', function (done) {
     var socket = io('http://localhost:7654');
     
-    socket.on('connect', function(){
+    socket.on('connect', function() {
       socket.emit('register', { username: 'a', password: 'password' })
     });
     socket.on('registered', function (user) {
       socket.emit('register', { username: 'a', password: 'password' })
     });
-    socket.on('register-fail', function(data){
+    socket.on('register-fail', function(data) {
       done();
     });
   });
@@ -60,7 +58,7 @@ describe('AuthController', function () {
     var socket = io('http://localhost:7654');
     var socket2 = io('http://localhost:7654');
     
-    socket.on('connect', function(){
+    socket.on('connect', function() {
       socket.emit('register', { username: 'a', password: 'password' })
     });
     socket.on('registered', function (user) {
@@ -69,7 +67,7 @@ describe('AuthController', function () {
         url: 'test url'
       })
     });
-    socket2.on('new-visit', function(data){
+    socket2.on('new-visit', function(data) {
       data.username.should.equal('a');
       data.url.should.equal('test url');
 
