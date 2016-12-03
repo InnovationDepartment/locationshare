@@ -8,7 +8,6 @@ try {
 }
 catch (err) {
   console.log("ERR: Could not load secret.js");
-  console.log(err);
 }
 
 require('./db/db');
@@ -54,4 +53,3 @@ io.on('connection', function (socket) {
     }
   });
 });
-console.log('App listening on port ' + port);
