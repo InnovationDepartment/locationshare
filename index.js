@@ -13,7 +13,7 @@ require('./db/db');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
-var port = 80;
+var port = process.env.PORT || 3000;
 
 mainDb.sync().then(function () {
   server.listen(port, function () {
@@ -33,6 +33,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('visit', function (data) {
+    console.log(data);
     VisitRecord.create(data);
 
     socket.broadcast.emit('new-visit', data);
