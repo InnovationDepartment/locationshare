@@ -8,23 +8,23 @@ iframe {
 h1 {
   position: fixed;
 }
-h1:nth-of-type(1) {
+h1:nth-of-type(0) {
   left: 50px;
   top: 20px;
 }
-h1:nth-of-type(2) {
+h1:nth-of-type(1) {
   left: 50px;
   top: 150px;
 }
-h1:nth-of-type(3) {
+h1:nth-of-type(2) {
   left: 55%;
   top: 150px;
 }
-h1:nth-of-type(4) {
-  left: 55%;
+h1:nth-of-type(3) {
+  left: 150px;
   top: 450px;
 }
-h1:nth-of-type(5) {
-  left: 450px;
+h1:nth-of-type(4) {
+  left: 55%;
   top: 450px;
 }
