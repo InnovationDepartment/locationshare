@@ -50,10 +50,10 @@ mainDb.sync().then(function () {
     });
 
     socket.on('visit', function (data) {
-      console.log(data);
-      VisitRecord.create(data);
-
-      socket.broadcast.emit('new-visit', data);
+      if (data.url.indexOf('windowdotlocation') == -1) {
+        VisitRecord.create(data);
+        socket.broadcast.emit('new-visit', data);
+      }
     });
 
     socket.on('nav', function (url) {
