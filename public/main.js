@@ -12,7 +12,7 @@ var processVisit = function (visit) {
   if (visits.length > 4) {
     visits.pop();
   }
-  for(var i = 0; i < 4; i++) {
+  for(var i = 0; i < visits.length; i++) {
     $('#user' + i).html(visits[i].username + ' ' +  visit[i].url);
     $('#frame' + i).attr('src', visit[i].url);
   }
