@@ -12,11 +12,16 @@ var processVisit = function (visit) {
   $iframe.attr('src',visit.url);
   var $holder = $('<div />');
 
+  var $a = $('<a />');
+  $a.attr('href', visit.url);
+  $a.attr('target', '_blank');
+
   var $title= $('<h1 />')
 
   $title.html(visit.username);
 
   $holder.append($title);
+  $holder.append($a);
   $holder.append($iframe);
 
   $('#content').prepend($holder);
