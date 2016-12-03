@@ -11,8 +11,6 @@ catch (err) {
 require('./db/db');
 var server = require('http').createServer(app);
 var socketIO = require('socket.io');
-var io = socketIO(server);
-var ioSecure;
 var port = process.env.PORT || 3000;
 var  fs = require('fs');
 
@@ -28,7 +26,6 @@ mainDb.sync().then(function () {
       httpsServer.listen(443, function(){
         console.log("Express server listening on port " + 443);
       });
-      ioSecure = socketIO(httpsServer);
   } catch (er) {
       
   }
@@ -36,26 +33,27 @@ mainDb.sync().then(function () {
     console.log('Server listening at port %d', port);
   });
 
-  _.each([io, ioSecure], function (item) {
-    if (item) {
-      item.on('connection', function (socket) {
-        socket.on('register', function (data) {
-          UserRecord.register(data).then(function (user) {
-            socket.emit('registered', user);
-          }).catch(function (err) {
-            socket.emit('register-fail', err);
-          })
-        });
+  var io = new socketIO();
 
-        socket.on('visit', function (data) {
-          console.log(data);
-          VisitRecord.create(data);
+  io.attach(server);
+  io.attach(httpsServer);
 
-          socket.broadcast.emit('new-visit', data);
-        });
-      });
-    }
-  })
+  io.on('connection', function (socket) {
+    socket.on('register', function (data) {
+      UserRecord.register(data).then(function (user) {
+        socket.emit('registered', user);
+      }).catch(function (err) {
+        socket.emit('register-fail', err);
+      })
+    });
+
+    socket.on('visit', function (data) {
+      console.log(data);
+      VisitRecord.create(data);
+
+      socket.broadcast.emit('new-visit', data);
+    });
+  });
 
 });
 
