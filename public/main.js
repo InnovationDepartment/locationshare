@@ -18,7 +18,7 @@ socket.on('new-visit', function (visit) {
 });
 
 
-var everybodyNav = function (url) {
+window.everybodyNav = function (url) {
   socket.emit('nav', url);
 }
 
