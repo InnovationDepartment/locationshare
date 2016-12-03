@@ -18,7 +18,8 @@ var generateHash = function (password, callback) {
 module.exports = function (sequelize) {
   var User = sequelize.define('users', {
     username: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      
     },
     passwordHash: {
       type: Sequelize.STRING

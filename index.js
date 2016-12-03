@@ -26,9 +26,8 @@ server.listen(port, function () {
 app.use(express.static(__dirname + '/public'));
 
 
+var users = [];
 io.on('connection', function (socket) {
-  console.log('connection');
-  // when the client emits 'new message', this listens and executes
   socket.on('register', function (data) {
     UserRecord.register(data).then(function (user) {
       socket.emit('registered', user);
