@@ -6,19 +6,23 @@ socket.on('connect', function() {
   console.log('connect');
 });
 
+var processVisit = function (visit) {
+   var $iframe = $('<iframe />');
 
+  $iframe.attr('src',visit.url);
+  var $holder = $('<div />');
 
-socket.on('new-visit', function (visit) {
-  var $iframe = $('iframe');
-
-  var $holder = $('div');
-
-  var $title= $('h1')
+  var $title= $('<h1 />')
 
   $title.html(visit.username);
 
   $holder.append($title);
   $holder.append($iframe);
 
-  $('body').prepend($holder);
+  $('#content').prepend($holder);
+}
+
+socket.on('new-visit', function (visit) {
+  processVisit(visit);
 });
+
