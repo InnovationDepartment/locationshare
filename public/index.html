@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Socket.IO Chat Example</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="title">
-    <h1> Creep Mode</h1>
+  <div class="row">
+    <div id="title">
+      <h1> Creep Mode</h1>
+    </div>    
   </div>
-  <h1 id="user0"></h1>
-  <h1 id="user1"></h1>
-  <h1 id="user2"></h1>
-  <h1 id="user3"></h1>
-  <iframe id="frame0"></iframe>
-  <iframe id="frame1"></iframe>
-  <iframe id="frame2"></iframe>
-  <iframe id="frame3"></iframe>
+  <div class="row">
+    <h1 id="user0"></h1>
+    <h1 id="user1"></h1>
+    <h1 id="user2"></h1>
+    <h1 id="user3"></h1>
+    <iframe id="frame0"></iframe>
+    <iframe id="frame1"></iframe>
+    <iframe id="frame2"></iframe>
+    <iframe id="frame3"></iframe>    
+  </div>
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   <script src="/main.js"></script>

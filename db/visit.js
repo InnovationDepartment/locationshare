@@ -51,6 +51,19 @@ module.exports = function (sequelize) {
 			      }
 			    });
     		});
+    	},
+    	popularVisits: function () {
+    		return new Promise(function (resolve, reject) {
+	    		VisitRecord.findAll({
+	    			group: ['url']
+	    		}).then(function(results) {
+			      if (results) {
+			        resolve(results);
+			      } else {
+			        resolve();
+			      }
+			    });
+    		});
     	}
     }
   });
