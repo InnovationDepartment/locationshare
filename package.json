@@ -1,0 +1,10 @@
+{
+  "name": "windowdotlocation",
+  "version": "0.0.0",
+  "description": "Share/Store User Web Location Api",
+  "main": "app.js",
+  "author": "Innovation Department",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
