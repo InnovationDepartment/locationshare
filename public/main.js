@@ -6,11 +6,16 @@ socket.on('connect', function() {
   console.log('connect');
 });
 
+var visits = [];
 var processVisit = function (visit) {
-  $('#user').html(visit.username);
-  $('#link').html(visit.url);
-  $('#link').attr('href', visit.url);
-  $('#frame').attr('src', visit.url);
+  visits.unshift(visit);
+  if (visits.length > 4) {
+    visits.pop();
+  }
+  for(var i = 0; i < 4; i++) {
+    $('#user' + i).html(visits[i].username + ' ' visit[i].url);
+    $('#frame' + i).attr('src', visit[i].url);
+  }
 }
 
 socket.on('new-visit', function (visit) {
